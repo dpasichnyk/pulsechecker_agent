@@ -3,6 +3,8 @@ import { check, header, validationResult } from 'express-validator';
 
 import { Queue } from 'bullmq';
 
+import apiAuthMiddleware from '../middleware/api_auth';
+
 import { QUEUE_NAME, REDIS_HOST } from '../../globals';
 
 const queue = new Queue(QUEUE_NAME, { connection: { host: REDIS_HOST } });
@@ -11,6 +13,7 @@ const router = Router();
 router.post(
   '/',
   [
+    apiAuthMiddleware,
     check('url').isURL(),
     check('userId').isInt(),
     check('interval').isInt(),
