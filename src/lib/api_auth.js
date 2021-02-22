@@ -5,11 +5,11 @@ function getKnownUser(apiKey) {
   return knownUsers[apiKey];
 }
 
-export default async function authenticate(apiKey) {
+export default function authenticate(apiKey) {
   const knownUser = getKnownUser(apiKey);
   const authenticatedUser = knownUser || (apiKey ? `unknown-user-for-key-${apiKey}` : 'user-without-key');
 
-  metrics.create('api_auth', { user: authenticatedUser });
+  metrics.info('api_auth', { user: authenticatedUser });
 
   return knownUser || false;
 }

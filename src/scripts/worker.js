@@ -23,16 +23,20 @@ const worker = new Worker(QUEUE_NAME, async (job) => {
 }, { connection: { host: REDIS_HOST } });
 
 worker.on('completed', (job) => {
-  metrics.create(job.it, { success: true, job });
+  metrics.info('job_completion', { success: true, job });
+  // eslint-disable-next-line no-console
   console.log(`Job ${job.name} completed.`);
 });
 
 worker.on('drained', () => {
+  // eslint-disable-next-line no-console
   console.log('Jobs drained.');
 });
 
 worker.on('failed', (jobId, error) => {
-  metrics.create(jobId, { success: false, error });
+  metrics.info('job_failure', { success: false, error });
+  // eslint-disable-next-line no-console
   console.error(`myWorker :: ERROR; jobId = + ${jobId}`);
+  // eslint-disable-next-line no-console
   console.error(error);
 });
