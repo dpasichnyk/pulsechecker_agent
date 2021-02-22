@@ -32,11 +32,11 @@ router.post(
 
     const jobName = `${userId}-${kind}-${name}`;
 
-    queue.add(jobName, { url, userId, kind, name }, { repeat: { every: interval } })
-      .then(data => res.json({ status: 200, id: data.id }))
-      .catch(error => res.json({ status: 500, error }));
+    const { status, id, error } = await queue.add(jobName, { url, userId, kind, name }, { repeat: { every: interval } })
+      .then(data => ({ status: 200, id: data.id }))
+      .catch(exception => ({ status: 500, error: exception }));
 
-    return res.json({ status: 500 });
+    return res.json({ status, error, id });
   },
 );
 
