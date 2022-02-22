@@ -3,7 +3,7 @@
   "version": "0.0.1",
   "description": "A tool which allows to perform scheduled requests, pings, etc as well as receive events",
   "main": "index.js",
-  "repository": "git@github.com:dpasechnik/pulsechecker_agent.git",
+  "repository": "git@github.com:dpasichnyk/pulsechecker_agent.git",
   "author": "Dmytro Pasichnyk <paskawmi@gmail.com>",
   "license": "BSD-2-Clause",
   "private": true,
